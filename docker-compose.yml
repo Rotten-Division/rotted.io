@@ -1,6 +1,6 @@
 services:
   rotted-io:
-    image: ghcr.io/rxtted/rotted.io:latest
+    image: ghcr.io/rotten-division/rotted.io:latest
     container_name: rotted-io
     restart: unless-stopped
     ports:
