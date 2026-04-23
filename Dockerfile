@@ -1,13 +1,14 @@
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install all dependencies. devDependencies include vite, typescript,
+# tailwindcss, postcss which the build step needs.
+RUN npm ci
 
 # Copy source files
 COPY . .
@@ -21,7 +22,7 @@ FROM nginx:alpine
 # Copy built files to nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy custom nginx config (optional - see below)
+# Copy custom nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
