@@ -86,7 +86,7 @@ function App() {
   const [isDecoding, setIsDecoding] = useState(true)
   const [displayTokens, setDisplayTokens] = useState<Array<{text: string, isAnimating: boolean}>>([])
   const [useTokenDisplay, setUseTokenDisplay] = useState(false)
-  const timeoutsRef = useRef<NodeJS.Timeout[]>([])
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const currentIndexRef = useRef(0)
 
   const transitionToText = (

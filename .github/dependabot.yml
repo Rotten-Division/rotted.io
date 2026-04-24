@@ -6,6 +6,17 @@ updates:
       interval: weekly
     open-pull-requests-limit: 10
     groups:
+      react-stack:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
+          - "@vitejs/plugin-react"
+      vite-stack:
+        patterns:
+          - vite
+          - "@vitejs/plugin-react"
       dev-dependencies:
         dependency-type: development
         update-types:
