@@ -42,7 +42,7 @@ jobs:
       - id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/rotten-division/rotted.io
 
       - id: build
         uses: docker/build-push-action@v7
@@ -53,7 +53,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha,scope=${{ matrix.arch }}
           cache-to: type=gha,mode=max,scope=${{ matrix.arch }}
-          outputs: type=image,name=ghcr.io/${{ github.repository }},push-by-digest=true,name-canonical=true
+          outputs: type=image,name=ghcr.io/rotten-division/rotted.io,push-by-digest=true,name-canonical=true
 
       - name: Export digest
         if: github.event_name != 'pull_request'
@@ -95,7 +95,7 @@ jobs:
       - id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/rotten-division/rotted.io
           tags: |
             type=ref,event=branch
             type=ref,event=tag
@@ -106,8 +106,8 @@ jobs:
         working-directory: /tmp/digests
         run: |
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf 'ghcr.io/${{ github.repository }}@sha256:%s ' *)
+            $(printf 'ghcr.io/rotten-division/rotted.io@sha256:%s ' *)
 
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect ghcr.io/${{ github.repository }}:${{ steps.meta.outputs.version }}
+          docker buildx imagetools inspect ghcr.io/rotten-division/rotted.io:${{ steps.meta.outputs.version }}
